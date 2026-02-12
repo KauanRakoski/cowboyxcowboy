@@ -1,0 +1,65 @@
+[gd_scene load_steps=5 format=3 uid="uid://cwa6dqwukyj2h"]
+
+[ext_resource type="Script" path="res://scripts/game_over.gd" id="1_6tjw1"]
+[ext_resource type="AudioStream" uid="uid://c5eipcsrwbnha" path="res://assets/audio/won.mp3" id="2_3bbb6"]
+[ext_resource type="AudioStream" uid="uid://blj3xfqir4ey7" path="res://assets/audio/lost.mp3" id="3_w4r6l"]
+[ext_resource type="AudioStream" uid="uid://ur6d5sndghhv" path="res://assets/audio/draw.mp3" id="4_nrykt"]
+
+[node name="GameOver" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_6tjw1")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.286275)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -239.0
+offset_top = -72.0
+offset_right = 239.0
+offset_bottom = 72.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+
+[node name="TitleLabel" type="Label" parent="ColorRect/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 45
+text = "This Game has Ended!"
+horizontal_alignment = 1
+
+[node name="StatusLabel" type="Label" parent="ColorRect/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "It's a Draw!"
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="ColorRect/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "My Score: 0"
+horizontal_alignment = 1
+
+[node name="InfoLabel" type="Label" parent="ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "[Press Any Key to Go To Main Menu]"
+horizontal_alignment = 1
+
+[node name="won_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_3bbb6")
+
+[node name="lost_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_w4r6l")
+
+[node name="draw_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_nrykt")

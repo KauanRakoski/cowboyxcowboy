@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://uf2jyknydu77"]
+
+[ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_e2vih"]
+[ext_resource type="Texture2D" uid="uid://cbu5rkd1ggiuj" path="res://assets/weapons/bullet.png" id="1_utb08"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g5lyb"]
+size = Vector2(59, 30)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_udsr1"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:direction")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[node name="Bullet" type="Area2D"]
+collision_layer = 8
+script = ExtResource("1_e2vih")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_g5lyb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(7, 5)
+scale = Vector2(0.0755911, 0.0848817)
+texture = ExtResource("1_utb08")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_udsr1")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

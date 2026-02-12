@@ -1,0 +1,205 @@
+[gd_scene load_steps=13 format=3 uid="uid://dyii1uhgpjfo0"]
+
+[ext_resource type="Script" path="res://scripts/start_screen.gd" id="1_xqhf3"]
+[ext_resource type="AudioStream" uid="uid://d2qvdpin3125s" path="res://assets/Menus/intro_sound.mp3" id="2_coje2"]
+[ext_resource type="Texture2D" uid="uid://dcstmsb03dole" path="res://assets/Menus/button.png" id="2_q0f7w"]
+[ext_resource type="FontFile" uid="uid://bauqrjmdsmh0x" path="res://assets/fonts/PressStart2P-Regular.ttf" id="2_sp0cl"]
+[ext_resource type="Texture2D" uid="uid://bsrct8vla34v1" path="res://assets/Menus/background_start.png" id="3_51txv"]
+[ext_resource type="Texture2D" uid="uid://bmajtejgyag2a" path="res://assets/Menus/host_game.png" id="4_ve6vf"]
+[ext_resource type="Script" path="res://scripts/base_button.gd" id="5_o3sb8"]
+[ext_resource type="Texture2D" uid="uid://nprwv1iy8ri3" path="res://assets/Menus/join_room.png" id="5_qmjv7"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rrhla"]
+texture = ExtResource("2_q0f7w")
+expand_margin_left = 5.0
+expand_margin_top = 3.0
+expand_margin_right = 5.0
+expand_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2ayxd"]
+texture = ExtResource("2_q0f7w")
+texture_margin_left = 30.0
+texture_margin_top = 25.0
+texture_margin_right = 30.0
+texture_margin_bottom = 25.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_10kss"]
+texture = ExtResource("2_q0f7w")
+texture_margin_left = 30.0
+texture_margin_top = 25.0
+texture_margin_right = 30.0
+texture_margin_bottom = 25.0
+
+[sub_resource type="Theme" id="Theme_j5op4"]
+default_font = ExtResource("2_sp0cl")
+Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+Button/styles/disabled = SubResource("StyleBoxTexture_rrhla")
+Button/styles/hover = SubResource("StyleBoxTexture_2ayxd")
+Button/styles/normal = SubResource("StyleBoxTexture_10kss")
+
+[node name="StartScreen" type="CanvasLayer"]
+script = ExtResource("1_xqhf3")
+metadata/_edit_horizontal_guides_ = [238.0]
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -15.0
+offset_top = -15.0
+offset_right = 25.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+volume_db = -80.0
+expand = true
+
+[node name="MarginContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_j5op4")
+
+[node name="InitialMenu" type="Control" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="MarginContainer/InitialMenu"]
+texture_filter = 1
+position = Vector2(27, 0.500002)
+scale = Vector2(0.4822, 0.485863)
+texture = ExtResource("3_51txv")
+
+[node name="Butons" type="MarginContainer" parent="MarginContainer/InitialMenu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -166.0
+offset_top = 229.0
+offset_right = 180.0
+offset_bottom = 293.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_top = 40
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/InitialMenu/Butons"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Host" type="Button" parent="MarginContainer/InitialMenu/Butons/HBoxContainer"]
+layout_mode = 2
+text = "Create Game"
+script = ExtResource("5_o3sb8")
+
+[node name="Join" type="Button" parent="MarginContainer/InitialMenu/Butons/HBoxContainer"]
+layout_mode = 2
+text = "Join Game"
+script = ExtResource("5_o3sb8")
+
+[node name="MenuHost" type="Control" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="MarginContainer/MenuHost"]
+position = Vector2(-13, 56)
+scale = Vector2(0.595982, 0.595982)
+texture = ExtResource("4_ve6vf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MenuHost"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.0
+offset_top = -20.0
+offset_right = 96.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="RoomCode" type="Label" parent="MarginContainer/MenuHost/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Generating Room Code..."
+
+[node name="StatusLabel" type="Label" parent="MarginContainer/MenuHost/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Number of Players: 1/2"
+
+[node name="StartBtn" type="Button" parent="MarginContainer/MenuHost/VBoxContainer"]
+layout_mode = 2
+text = "Start Game"
+
+[node name="BtnCancel" type="Button" parent="MarginContainer/MenuHost/VBoxContainer"]
+layout_mode = 2
+text = "Return"
+
+[node name="MenuJoin" type="Control" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="MarginContainer/MenuJoin"]
+position = Vector2(32, 13)
+scale = Vector2(0.502046, 0.502046)
+texture = ExtResource("5_qmjv7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MenuJoin"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="MarginContainer/MenuJoin/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Type the room code:"
+
+[node name="InputCode" type="LineEdit" parent="MarginContainer/MenuJoin/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+placeholder_text = "1234"
+
+[node name="BtnConnect" type="Button" parent="MarginContainer/MenuJoin/VBoxContainer"]
+layout_mode = 2
+text = "Join Game"
+
+[node name="BtnCancel" type="Button" parent="MarginContainer/MenuJoin/VBoxContainer"]
+layout_mode = 2
+text = "Return"
+
+[node name="WarnJoin" type="Label" parent="MarginContainer/MenuJoin/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.24524, 0.187845, 1)
+theme_override_font_sizes/font_size = 10
+text = "Unable to join game. Check if the room exists"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_coje2")
+autoplay = true
+
+[connection signal="pressed" from="MarginContainer/InitialMenu/Butons/HBoxContainer/Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="MarginContainer/MenuHost/VBoxContainer/BtnCancel" to="." method="_on_btn_cancel_pressed"]
+[connection signal="pressed" from="MarginContainer/MenuJoin/VBoxContainer/BtnCancel" to="." method="_on_btn_cancel_pressed"]
