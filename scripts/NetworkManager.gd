@@ -74,7 +74,7 @@ func _emit_player_count():
 	
 @rpc("authority", "call_local", "reliable")
 func change_scene(scene_path):
-	get_tree().change_scene_to_file(scene_path)
+	get_tree().call_deferred("change_scene_to_file", scene_path)
 	
 func start_game():
 	if multiplayer.is_server():

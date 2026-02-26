@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cwa6dqwukyj2h"]
 
-[ext_resource type="Script" path="res://scripts/game_over.gd" id="1_6tjw1"]
+[ext_resource type="Script" path="res://Scripts/game_over.gd" id="1_6tjw1"]
 [ext_resource type="AudioStream" uid="uid://c5eipcsrwbnha" path="res://assets/audio/won.mp3" id="2_3bbb6"]
 [ext_resource type="AudioStream" uid="uid://blj3xfqir4ey7" path="res://assets/audio/lost.mp3" id="3_w4r6l"]
 [ext_resource type="AudioStream" uid="uid://ur6d5sndghhv" path="res://assets/audio/draw.mp3" id="4_nrykt"]

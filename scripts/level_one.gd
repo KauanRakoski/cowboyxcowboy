@@ -79,18 +79,15 @@ func get_best_spawn_point():
 	var spawns = $SpawnPoints.get_children()
 	var players_list = $Players.get_children()
 	
-	# Se não tiver pontos configurados, retorna zero para não crasar
 	if spawns.is_empty():
 		return Vector2.ZERO
 	
-	# Se for o primeiro jogador (ou ninguém vivo), escolhe aleatório
 	if players_list.is_empty():
 		return spawns.pick_random().global_position
 	
 	var best_spawn = null
 	var max_safety_distance = -1.0
 	
-	# Algoritmo "Maximin": Queremos maximizar a distância mínima
 	for spawn in spawns:
 		var min_dist_to_enemy = INF 
 		

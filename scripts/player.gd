@@ -37,7 +37,10 @@ func _ready():
 	else:
 		camera.enabled = false
 	
-func _physics_process(_delta):		
+func _physics_process(_delta):
+	if is_dead:
+		return
+				
 	if is_multiplayer_authority():
 		
 		var direction = Input.get_vector("input_left", "input_right", "input_up", "input_down")
@@ -51,7 +54,7 @@ func _physics_process(_delta):
 		if Input.is_action_just_pressed("input_shoot"):
 			shoot.rpc()
 			
-	if is_attacking or is_dead:
+	if is_attacking:
 		return
 		
 	if !velocity == Vector2.ZERO:
@@ -68,8 +71,6 @@ func _physics_process(_delta):
 	else:
 		velocity = Vector2.ZERO
 		$AnimatedSprite2D.play("idle")
-		
-	handle_footsteps()
 
 @rpc("call_local", "authority", "reliable")
 func shoot():
@@ -93,16 +94,12 @@ func shoot():
 @rpc("call_local", "authority", "reliable")
 func play_attack_animation():
 	if last_direction.y < 0:
-		print("Entrou up")
 		$AnimatedSprite2D.play("shoot_up")
 	elif last_direction.y > 0:
-		print("Entrou down")
 		$AnimatedSprite2D.play("shoot_down")
 	elif last_direction.x > 0:
-		print("Entrou right")
 		$AnimatedSprite2D.play("shoot_right")
 	elif last_direction.x < 0:
-		print("Entrou left")
 		$AnimatedSprite2D.play("shoot_left")
 
 func _on_animated_sprite_2d_animation_finished():
@@ -161,9 +158,6 @@ func respawn():
 	if not multiplayer.is_server():
 		return
 	
-	health = MAX_HEALTH
-	is_dead = false
-	
 	var spawn_pos = Vector2.ZERO
 	var level = get_parent().get_parent()
 	
@@ -180,7 +174,12 @@ func revive_visuals(new_position):
 		return
 	
 	global_position = new_position
+	
+	health = MAX_HEALTH
 	is_dead = false
+	is_attacking = false
+	velocity = Vector2.ZERO
+	
 	set_physics_process(true)
 	$CollisionShape2D.set_deferred("disabled", false)
 	
@@ -220,5 +219,4 @@ func handle_footsteps():
 
 func play_step_sound():
 	step_sfx.pitch_scale = randf_range(0.8, 1.2)
-	print("passo")
 	step_sfx.play()
